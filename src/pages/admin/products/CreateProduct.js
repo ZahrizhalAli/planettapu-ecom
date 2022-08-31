@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from "react";
-import AdminNav from "../../../components/nav/AdminNav";
-import { createProduct } from "../../../functions/product";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import AdminNav from '../../../components/nav/AdminNav';
+import FileUpload from '../../../components/forms/FileUpload';
+import { createProduct } from '../../../functions/product';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 //category
-import { getCategories, getSubs } from "../../../functions/category";
+import { getCategories, getSubs } from '../../../functions/category';
 //antd design
-import { Select } from "antd";
+import { Select } from 'antd';
 const { Option } = Select;
 
 const initialState = {
-  title: "",
-  description: "",
-  price: "",
-  color: "",
-  brand: "",
+  title: '',
+  description: '',
+  price: '',
+  color: '',
+  brand: '',
   categories: [],
-  category: "",
+  category: '',
   subs: [],
-  shipping: "",
-  quantity: "",
+  shipping: '',
+  quantity: '',
   images: [],
   colors: [
-    "Black",
-    "Blue",
-    "Red",
-    "White",
-    "Space Grey",
-    "Gray",
-    "Yellow",
-    "Green",
-    "Navy",
+    'Black',
+    'Blue',
+    'Red',
+    'White',
+    'Space Grey',
+    'Gray',
+    'Yellow',
+    'Green',
+    'Navy',
   ],
 };
 
@@ -38,7 +39,7 @@ function CreateProduct() {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [showSubs, setShowSubs] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   //destructuring all products models from values state
   const {
     title,
@@ -88,10 +89,10 @@ function CreateProduct() {
     createProduct(values, user.token)
       .then((res) => {
         console.log(res);
-        toast.dark("Successfully Published");
+        toast.dark('Successfully Published');
       })
       .catch((err) => {
-        toast.error("Creating Product Failed");
+        toast.error('Creating Product Failed');
         console.log(err);
       });
   }
@@ -109,6 +110,12 @@ function CreateProduct() {
 
             <div class="col-md-9 col-sm-9">
               <h1>Product</h1>
+              {JSON.stringify(values)}
+              <FileUpload
+                values={values}
+                setValues={setValues}
+                setLoading={setLoading}
+              />
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Title</label>
