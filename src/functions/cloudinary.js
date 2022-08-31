@@ -13,8 +13,8 @@ export const uploadImages = async (uri, authtoken) => {
 };
 
 export const removeImage = async (public_id, authtoken) => {
-  return await axios.post(
-    `${process.env.REACT_APP_BACKEND_API}/product/image`,
+  return await axios.delete(
+    `${process.env.REACT_APP_BACKEND_API}/removeimages`,
     { public_id },
     {
       headers: {

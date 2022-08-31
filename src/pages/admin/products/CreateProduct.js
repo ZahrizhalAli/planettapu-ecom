@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { getCategories, getSubs } from '../../../functions/category';
 //antd design
 import { Select } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 const initialState = {
@@ -109,8 +110,8 @@ function CreateProduct() {
             </div>
 
             <div class="col-md-9 col-sm-9">
-              <h1>Product</h1>
-              {JSON.stringify(values)}
+              {loading ? <LoadingOutlined /> : <h1>Product</h1>}
+
               <FileUpload
                 values={values}
                 setValues={setValues}
