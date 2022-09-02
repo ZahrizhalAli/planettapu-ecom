@@ -1,53 +1,57 @@
-import React, { useEffect, Suspense } from "react";
-import { Switch, Route } from "react-router-dom";
-import "antd/dist/antd.css";
-import "./css/style.css";
+import React, { useEffect, Suspense } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import 'antd/dist/antd.css';
+import './css/style.css';
 
 //toasitify
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //redux
-import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
+import { auth } from './firebase';
+import { useDispatch } from 'react-redux';
 //functions
-import { currentUser } from "./functions/auth";
+import { currentUser } from './functions/auth';
 //pages -> auth
-const ForgotPassword = React.lazy(() => import("./pages/auth/ForgotPassword"));
+const ForgotPassword = React.lazy(() => import('./pages/auth/ForgotPassword'));
 const RegisterComplete = React.lazy(() =>
-  import("./pages/auth/RegisterComplete")
+  import('./pages/auth/RegisterComplete')
 );
 
-const History = React.lazy(() => import("./pages/user/History"));
+const History = React.lazy(() => import('./pages/user/History'));
 //components/routes
-const UserRoute = React.lazy(() => import("./components/routes/UserRoute"));
-const AdminRoute = React.lazy(() => import("./components/routes/AdminRoute"));
+const UserRoute = React.lazy(() => import('./components/routes/UserRoute'));
+const AdminRoute = React.lazy(() => import('./components/routes/AdminRoute'));
 
 const CategoryCreate = React.lazy(() =>
-  import("./pages/admin/category/CategoryCreate")
+  import('./pages/admin/category/CategoryCreate')
 );
 const CategoryUpdate = React.lazy(() =>
-  import("./pages/admin/category/CategoryUpdate")
+  import('./pages/admin/category/CategoryUpdate')
 );
 
 //pages/user
-const Wishlist = React.lazy(() => import("./pages/user/Wishlist"));
-const Password = React.lazy(() => import("./pages/user/Password"));
+const Wishlist = React.lazy(() => import('./pages/user/Wishlist'));
+const Password = React.lazy(() => import('./pages/user/Password'));
 //pages/admin
-const AdminDashboard = React.lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminDashboard = React.lazy(() => import('./pages/admin/AdminDashboard'));
 
-const CreateSub = React.lazy(() => import("./pages/admin/sub/CreateSub"));
-const UpdateSub = React.lazy(() => import("./pages/admin/sub/UpdateSub"));
+const CreateSub = React.lazy(() => import('./pages/admin/sub/CreateSub'));
+const UpdateSub = React.lazy(() => import('./pages/admin/sub/UpdateSub'));
 //pages
-const Home = React.lazy(() => import("./pages/Home"));
+const Home = React.lazy(() => import('./pages/Home'));
 //components/nav & /footer
-const Header = React.lazy(() => import("./components/nav/Header"));
-const Footer = React.lazy(() => import("./components/footer/Footer"));
-const Login = React.lazy(() => import("./pages/auth/Login"));
-const Register = React.lazy(() => import("./pages/auth/Register"));
+const Header = React.lazy(() => import('./components/nav/Header'));
+const Footer = React.lazy(() => import('./components/footer/Footer'));
+const Login = React.lazy(() => import('./pages/auth/Login'));
+const Register = React.lazy(() => import('./pages/auth/Register'));
 //products
 const CreateProduct = React.lazy(() =>
-  import("./pages/admin/products/CreateProduct")
+  import('./pages/admin/products/CreateProduct')
 );
+const UpdateProduct = React.lazy(() =>
+  import('./pages/admin/products/UpdateProduct')
+);
+const Products = React.lazy(() => import('./pages/admin/products/Products'));
 
 function App() {
   const dispatch = useDispatch();
@@ -59,7 +63,7 @@ function App() {
           .then((res) => {
             if (res.data) {
               dispatch({
-                type: "LOGGED_IN_USER",
+                type: 'LOGGED_IN_USER',
                 payload: {
                   name: res.data.name,
                   email: res.data.email,
@@ -70,7 +74,7 @@ function App() {
               });
             } else {
               dispatch({
-                type: "LOGGED_IN_USER",
+                type: 'LOGGED_IN_USER',
                 payload: {
                   name: user.name,
                   email: user.email,
@@ -120,6 +124,13 @@ function App() {
           <AdminRoute exact path="/admin/sub/:slug" component={UpdateSub} />
 
           <AdminRoute exact path="/admin/product" component={CreateProduct} />
+          <AdminRoute
+            exact
+            path="/admin/product/:slug"
+            component={UpdateProduct}
+          />
+
+          <AdminRoute exact path="/admin/products" component={Products} />
         </Switch>
         <Footer />
       </Suspense>

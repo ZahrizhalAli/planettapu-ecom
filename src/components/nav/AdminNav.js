@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function AdminNav() {
   return (
@@ -7,7 +7,7 @@ function AdminNav() {
       <div class="sidebar">
         <div
           class="d-flex p-3 alert alert-secondary"
-          style={{ width: "280px" }}
+          style={{ width: '280px' }}
         >
           <ul class="nav nav-pills flex-column mb-auto">
             <li>
@@ -17,6 +17,11 @@ function AdminNav() {
             </li>
             <li>
               <Link to="/admin/product" class="nav-link link-dark">
+                <i class="fas fa-table icon-nav"></i> Add Product
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/products" class="nav-link link-dark">
                 <i class="fas fa-table icon-nav"></i> Products
               </Link>
             </li>

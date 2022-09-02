@@ -91,6 +91,7 @@ function CreateProduct() {
       .then((res) => {
         console.log(res);
         toast.dark('Successfully Published');
+        window.location.reload();
       })
       .catch((err) => {
         toast.error('Creating Product Failed');

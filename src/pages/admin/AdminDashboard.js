@@ -1,6 +1,7 @@
-import React, { lazy, Suspense } from "react";
-const AdminNav = lazy(() => import("../../components/nav/AdminNav"));
-function History() {
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+const AdminNav = lazy(() => import('../../components/nav/AdminNav'));
+
+function AdminDashboard() {
   return (
     <>
       <Suspense fallback={null}>
@@ -10,14 +11,6 @@ function History() {
             <div class="row margin-bottom-40">
               {/* <!-- USER NAV --> */}
               <AdminNav />
-
-              <div class="col-md-9 col-sm-7">
-                <h1>Admin Dashboard</h1>
-                <div class="content-page">
-                  Welcome admin. Check this news and our new blogs to help you
-                  through and start making more money during this ramadhan.{" "}
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -26,4 +19,4 @@ function History() {
   );
 }
 
-export default History;
+export default AdminDashboard;
