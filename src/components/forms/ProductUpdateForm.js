@@ -1,13 +1,21 @@
 import React from 'react';
 import { Select } from 'antd';
+import { getCategories } from '../../functions/category';
 const { Option } = Select;
-
-function ProductUpdateForm({ values, handleSubmit, handleChange, setValues }) {
+function ProductUpdateForm({
+  categories,
+  handleCategoryChange,
+  values,
+  handleSubmit,
+  handleChange,
+  setValues,
+  subOptions,
+  showSubs,
+}) {
   const {
     title,
     description,
     price,
-    categories,
     category,
     subs,
     shipping,
@@ -89,14 +97,14 @@ function ProductUpdateForm({ values, handleSubmit, handleChange, setValues }) {
             })}
           </select>
         </div>
-        {/* <div className="form-group">
+        <div className="form-group">
           <label>Product Category</label>
           <select
             name="category"
             className="form-control"
             onChange={handleCategoryChange}
           >
-            <option>Pilih category</option>
+            <option>{category ? category.name : 'Please select'} </option>
             {categories.length > 0 &&
               categories.map((c) => {
                 return (
@@ -106,8 +114,8 @@ function ProductUpdateForm({ values, handleSubmit, handleChange, setValues }) {
                 );
               })}
           </select>
-        </div> */}
-        {/* {showSubs && (
+        </div>
+        {showSubs && (
           <div className="form-group">
             <label>Sub Categories</label>
             <Select
@@ -126,7 +134,7 @@ function ProductUpdateForm({ values, handleSubmit, handleChange, setValues }) {
                 })}
             </Select>
           </div>
-        )} */}
+        )}
 
         <button className="btn btn-outline-dark">PUBLISH</button>
       </form>
