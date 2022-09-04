@@ -104,8 +104,9 @@ function ProductUpdateForm({
             name="category"
             className="form-control"
             onChange={handleCategoryChange}
+            value={category._id}
           >
-            <option>{category ? category.name : 'Please select'} </option>
+            {/* <option>{category ? category.name : 'Please select'} </option> */}
             {categories.length > 0 &&
               categories.map((c) => {
                 return (

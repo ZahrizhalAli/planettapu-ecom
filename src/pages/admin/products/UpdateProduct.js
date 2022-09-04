@@ -82,6 +82,11 @@ function UpdateProduct() {
     getSubs(e.target.value).then((res) => {
       setSubOptions(res.data);
     });
+    if (values.category._id === e.target.value) {
+      // show original product categories
+      loadProduct();
+    }
+    setArrayOfSubIds([]);
   }
   return (
     <>
