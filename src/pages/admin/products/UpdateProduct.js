@@ -36,17 +36,31 @@ function UpdateProduct() {
   const [subOptions, setSubOptions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showSubs, setShowSubs] = useState(false);
+  const [arrayOfSubIds, setArrayOfSubIds] = useState([]);
   useEffect(() => {
+    loadProduct();
+    loadCategories();
+  }, []);
+
+  function loadProduct() {
     getProduct(slug)
       .then((res) => {
         setValues({ ...values, ...res.data });
+        // 2 get subs based on category
+        getSubs(res.data.category._id).then((p) => {
+          setSubOptions(p.data);
+        });
+        // 3 prepare array of sub ids to show as default sub in antd
+        let arr = [];
+        res.data.subs.map((s) => {
+          arr.push(s._id);
+        });
+        setArrayOfSubIds((prev) => arr); //require for ant design select to work
       })
       .catch((err) => {
         console.log(err);
       });
-    loadCategories();
-  }, []);
-
+  }
   function handleSubmit(e) {
     e.preventDefault();
   }
@@ -91,6 +105,8 @@ function UpdateProduct() {
                 categories={categories}
                 subOptions={subOptions}
                 showSubs={showSubs}
+                arrayOfSubIds={arrayOfSubIds}
+                setArrayOfSubIds={setArrayOfSubIds}
               />
             </div>
           </div>

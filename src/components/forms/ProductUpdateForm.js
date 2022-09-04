@@ -1,5 +1,5 @@
-import React from 'react';
-import { Select } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Select, TimePicker } from 'antd';
 import { getCategories } from '../../functions/category';
 const { Option } = Select;
 function ProductUpdateForm({
@@ -10,7 +10,8 @@ function ProductUpdateForm({
   handleChange,
   setValues,
   subOptions,
-  showSubs,
+  arrayOfSubIds,
+  setArrayOfSubIds,
 }) {
   const {
     title,
@@ -115,26 +116,25 @@ function ProductUpdateForm({
               })}
           </select>
         </div>
-        {showSubs && (
-          <div className="form-group">
-            <label>Sub Categories</label>
-            <Select
-              mode="multiple"
-              className="form-control"
-              value={subs}
-              onChange={(value) => setValues({ ...values, subs: value })}
-            >
-              {subOptions.length > 0 &&
-                subOptions.map((s) => {
-                  return (
-                    <Option value={s._id} key={s._id}>
-                      {s.name}
-                    </Option>
-                  );
-                })}
-            </Select>
-          </div>
-        )}
+
+        <div className="form-group">
+          <label>Sub Categories</label>
+          <Select
+            mode="multiple"
+            className="form-control"
+            value={arrayOfSubIds}
+            onChange={(value) => setArrayOfSubIds(value)}
+          >
+            {subOptions.length > 0 &&
+              subOptions.map((s) => {
+                return (
+                  <Option value={s._id} key={s._id}>
+                    {s.name}
+                  </Option>
+                );
+              })}
+          </Select>
+        </div>
 
         <button className="btn btn-outline-dark">PUBLISH</button>
       </form>
