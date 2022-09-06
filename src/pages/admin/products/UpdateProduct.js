@@ -2,11 +2,12 @@ import { LoadingOutlined } from '@ant-design/icons';
 import React, { useState, useEffect } from 'react';
 import AdminNav from '../../../components/nav/AdminNav';
 import { useParams } from 'react-router-dom';
-import { getProduct } from '../../../functions/product';
+import { getProduct, updateProduct } from '../../../functions/product';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 import { getCategories, getSubs } from '../../../functions/category';
 import FileUpload from '../../../components/forms/FileUpload';
-
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 const initialState = {
   title: '',
   description: '',
@@ -31,7 +32,7 @@ const initialState = {
   ],
 };
 
-function UpdateProduct() {
+function UpdateProduct({ history }) {
   const [loading, setLoading] = useState(false);
   const { slug } = useParams();
   const [values, setValues] = useState(initialState);
@@ -40,6 +41,8 @@ function UpdateProduct() {
   const [showSubs, setShowSubs] = useState(false);
   const [arrayOfSubIds, setArrayOfSubIds] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+
+  const { user } = useSelector((state) => ({ ...state }));
   useEffect(() => {
     loadProduct();
     loadCategories();
@@ -66,6 +69,22 @@ function UpdateProduct() {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
+    values.subs = arrayOfSubIds; // updated properties
+    values.category = selectedCategory ? selectedCategory : values.category; // updated properties
+
+    updateProduct(slug, values, user && user.token)
+      .then((res) => {
+        setLoading(false);
+        toast.success('Product Updated');
+
+        // redirect
+        history.push('/admin/products');
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.err);
+      });
   }
   async function loadCategories() {
     await getCategories().then((c) => {
