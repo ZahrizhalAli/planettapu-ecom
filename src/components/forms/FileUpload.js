@@ -113,7 +113,7 @@ function FileUpload({ values, setValues, setLoading }) {
           })}
       </div>
       <div className="row">
-        <label className="btn btn-primary btn-raised">
+        <label className="btn btn-primary btn-raised m-3">
           Choose Images
           <input
             type="file"

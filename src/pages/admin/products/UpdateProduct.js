@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getProduct } from '../../../functions/product';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 import { getCategories, getSubs } from '../../../functions/category';
-
+import FileUpload from '../../../components/forms/FileUpload';
 
 const initialState = {
   title: '',
@@ -106,8 +106,14 @@ function UpdateProduct() {
               <AdminNav />
             </div>
             <div class="col-md-9 col-sm-9">
-              {loading ? <LoadingOutlined /> : <h1>{slug}</h1>}
-              {JSON.stringify(values)}
+              {loading ? <LoadingOutlined /> : <h1>Update Product</h1>}
+              {/* {JSON.stringify(values)} */}
+              <FileUpload
+                values={values}
+                setValues={setValues}
+                setLoading={setLoading}
+              />
+
               <ProductUpdateForm
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
