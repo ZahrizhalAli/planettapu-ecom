@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { getProduct } from '../../../functions/product';
 import ProductUpdateForm from '../../../components/forms/ProductUpdateForm';
 import { getCategories, getSubs } from '../../../functions/category';
+
+
 const initialState = {
   title: '',
   description: '',
@@ -37,6 +39,7 @@ function UpdateProduct() {
   const [categories, setCategories] = useState([]);
   const [showSubs, setShowSubs] = useState(false);
   const [arrayOfSubIds, setArrayOfSubIds] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   useEffect(() => {
     loadProduct();
     loadCategories();
@@ -73,9 +76,13 @@ function UpdateProduct() {
   function handleChange(e) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
+
   function handleCategoryChange(e) {
     e.preventDefault();
-    setValues({ ...values, subs: [], category: e.target.value });
+    setValues({ ...values, subs: [] });
+
+    // separate state for selected categories
+    setSelectedCategory(e.target.value);
 
     //fetch API getCategorySubs
     setShowSubs(true);
@@ -112,6 +119,7 @@ function UpdateProduct() {
                 showSubs={showSubs}
                 arrayOfSubIds={arrayOfSubIds}
                 setArrayOfSubIds={setArrayOfSubIds}
+                selectedCategory={selectedCategory}
               />
             </div>
           </div>

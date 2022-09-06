@@ -12,6 +12,7 @@ function ProductUpdateForm({
   subOptions,
   arrayOfSubIds,
   setArrayOfSubIds,
+  selectedCategory,
 }) {
   const {
     title,
@@ -104,7 +105,7 @@ function ProductUpdateForm({
             name="category"
             className="form-control"
             onChange={handleCategoryChange}
-            value={category._id}
+            value={selectedCategory ? selectedCategory : category._id}
           >
             {/* <option>{category ? category.name : 'Please select'} </option> */}
             {categories.length > 0 &&
