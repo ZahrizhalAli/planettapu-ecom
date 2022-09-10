@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'antd';
-import { EditOutlined, EyeFilled } from '@ant-design/icons';
+import { ShoppingCartOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 const { Meta } = Card;
 
@@ -16,13 +16,16 @@ function ProductCard({ handleRemove, product, defaultImage }) {
         style={{ height: '150px', objectFit: 'cover' }}
         className="m-2"
         actions={[
-          <Link to={`/admin/product/${slug}`}>
-            <EditOutlined />
+          <Link to={`/product/${slug}`}>
+            <EyeOutlined />
+            <br />
+            View Product
           </Link>,
-          <EyeFilled
-            onClick={() => handleRemove(slug)}
-            className="text-danger"
-          />,
+          <div>
+            <ShoppingCartOutlined />
+            <br />
+            Add to cart
+          </div>,
         ]}
       >
         <Meta

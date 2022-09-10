@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AdminProductCard from '../components/cards/AdminProductCard';
+import ProductCard from '../components/cards/ProductCard';
 import { getProductsByCount } from '../functions/product';
 import { toast } from 'react-toastify';
 function Home() {
@@ -30,7 +30,7 @@ function Home() {
         <div className="row">
           {products.map((p) => (
             <div className="col-md-4" key={p._id}>
-              <AdminProductCard product={p} />
+              <ProductCard product={p} />
             </div>
           ))}
         </div>
