@@ -11,8 +11,7 @@ function ProductCard({ loading, product, defaultImage }) {
 
   return (
     <>
-      <Skeleton></Skeleton>
-      {/* <Card
+      <Card
         cover={
           <img src={images && images.length ? images[0].url : defaultImage} />
         }
@@ -35,7 +34,7 @@ function ProductCard({ loading, product, defaultImage }) {
           title={title}
           description={`${description && description.substring(0, 50)}...`}
         />
-      </Card> */}
+      </Card>
     </>
   );
 }
