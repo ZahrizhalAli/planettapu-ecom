@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getProductsByCount } from '../functions/product';
 import { toast } from 'react-toastify';
+import Jumbotron from '../components/cards/Jumbotron';
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ function Home() {
   }, []);
   function loadAllProducts() {
     setLoading(true);
-    getProductsByCount(5)
+    getProductsByCount(6)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -23,14 +24,12 @@ function Home() {
   }
   return (
     <>
-      <div className="jumbotron text-center">
-        {loading ? <h1>Loading..</h1> : <h1>All Products</h1>}
-      </div>
+      <Jumbotron loading={loading} />
       <div className="container">
         <div className="row">
           {products.map((p) => (
             <div className="col-md-4" key={p._id}>
-              <ProductCard product={p} />
+              <ProductCard product={p} loading={loading} />
             </div>
           ))}
         </div>

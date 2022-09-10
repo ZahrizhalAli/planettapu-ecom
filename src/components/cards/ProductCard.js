@@ -2,14 +2,17 @@ import React from 'react';
 import { Card } from 'antd';
 import { ShoppingCartOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { Skeleton } from 'antd';
+
 const { Meta } = Card;
 
-function ProductCard({ handleRemove, product, defaultImage }) {
+function ProductCard({ loading, product, defaultImage }) {
   const { title, description, images, slug } = product;
 
   return (
     <>
-      <Card
+      <Skeleton></Skeleton>
+      {/* <Card
         cover={
           <img src={images && images.length ? images[0].url : defaultImage} />
         }
@@ -32,7 +35,7 @@ function ProductCard({ handleRemove, product, defaultImage }) {
           title={title}
           description={`${description && description.substring(0, 50)}...`}
         />
-      </Card>
+      </Card> */}
     </>
   );
 }
