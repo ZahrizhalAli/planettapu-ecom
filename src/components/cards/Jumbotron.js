@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Jumbotron({ loading }) {
+function Jumbotron({ title }) {
   return (
     <>
       <div className="jumbotron text-center">
-        {loading ? <h1>Loading..</h1> : <h1>All Products</h1>}
+        <h1>{title}</h1>
       </div>
     </>
   );

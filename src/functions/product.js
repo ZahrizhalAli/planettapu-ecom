@@ -43,3 +43,12 @@ export const updateProduct = async (slug, product, authtoken) => {
     }
   );
 };
+
+// FOR HOMEPAGE
+export const getProducts = async (sort, order, limit) => {
+  return await axios.post(`${process.env.REACT_APP_BACKEND_API}/products/`, {
+    sort,
+    order,
+    limit,
+  });
+};
