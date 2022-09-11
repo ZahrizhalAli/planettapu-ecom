@@ -13,10 +13,13 @@ function ProductCard({ loading, product, defaultImage }) {
     <>
       <Card
         cover={
-          <img src={images && images.length ? images[0].url : defaultImage} style={{ height: '150px', objectFit: 'cover' }}
-        className="p-1" />
+          <img
+            alt={images}
+            src={images && images.length ? images[0].url : defaultImage}
+            style={{ height: '150px', objectFit: 'cover' }}
+            className="p-1"
+          />
         }
-        
         actions={[
           <Link to={`/product/${slug}`}>
             <EyeOutlined />

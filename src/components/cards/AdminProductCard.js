@@ -15,6 +15,7 @@ function AdminProductCard({ handleRemove, product, defaultImage }) {
             src={images && images.length ? images[0].url : defaultImage}
             style={{ height: '150px', objectFit: 'cover' }}
             className="p-1"
+            alt={images}
           />
         }
         actions={[
