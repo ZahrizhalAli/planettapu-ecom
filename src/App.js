@@ -39,6 +39,7 @@ const CreateSub = React.lazy(() => import('./pages/admin/sub/CreateSub'));
 const UpdateSub = React.lazy(() => import('./pages/admin/sub/UpdateSub'));
 //pages
 const Home = React.lazy(() => import('./pages/Home'));
+const ProductsHomepage = React.lazy(() => import('./pages/ProductsHomepage'));
 //components/nav & /footer
 const Header = React.lazy(() => import('./components/nav/Header'));
 const Footer = React.lazy(() => import('./components/footer/Footer'));
@@ -100,6 +101,8 @@ function App() {
 
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/product/:slug" component={ProductsHomepage} />
+
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/register/complete" component={RegisterComplete} />
