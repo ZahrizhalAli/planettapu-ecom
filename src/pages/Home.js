@@ -1,7 +1,7 @@
 import React from 'react';
-import Jumbotron from '../components/cards/Jumbotron';
-import BestSellers from '../components/home/BestSellers';
-import NewArrivals from '../components/home/NewArrivals';
+const Jumbotron = React.lazy(() => import('../components/cards/Jumbotron'));
+const BestSellers = React.lazy(() => import('../components/home/BestSellers'));
+const NewArrivals = React.lazy(() => import('../components/home/NewArrivals'));
 
 function Home() {
   return (
