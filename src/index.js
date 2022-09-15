@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 //redux
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 //CSS
-
-import rootReducers from "./reducers/action";
+import './index.css';
+import rootReducers from './reducers/action';
 
 //store
 const store = createStore(rootReducers, composeWithDevTools());
@@ -20,5 +20,5 @@ ReactDOM.render(
       </BrowserRouter>
     </Provider>
   </>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
