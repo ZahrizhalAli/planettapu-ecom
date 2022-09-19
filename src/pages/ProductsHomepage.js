@@ -29,8 +29,12 @@ function ProductsHomepage({ match }) {
         <div className="row pt-4">
           <SingleProduct product={product} />
         </div>
-        <div className="row">
-          <div>Related Product</div>
+        <div className="row p-5">
+          <div className="col text-center pt-5 pb-5">
+            <hr />
+            <h2>Related Product</h2>
+            <hr />
+          </div>
         </div>
       </div>
     </>
