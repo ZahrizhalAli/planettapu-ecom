@@ -6,6 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import imagedefault from '../../pages/admin/products/default-image.jpg';
 import ProductListItems from './ProductListItems';
+import StarRating from 'react-star-ratings';
 const { Meta } = Card;
 const { TabPane } = Tabs;
 
@@ -48,7 +49,18 @@ function SingleProduct({ product }) {
 
       <div className="col-md-5">
         <h1 className="bg-info p-3">{product.title}</h1>
-
+        <div>
+          <StarRating
+            name={product._id}
+            numberOfStars={5}
+            rating={2}
+            changeRating={(newRating, name) =>
+              console.log('newRating', newRating, 'name', name)
+            }
+            isSelectable={true}
+            starRatedColor="orange"
+          />
+        </div>
         <Card
           actions={[
             <>
