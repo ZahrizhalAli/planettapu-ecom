@@ -1,36 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { auth, googleFirebaseAuth } from "../../firebase";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { auth, googleFirebaseAuth } from '../../firebase';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 // import { Link } from "react-router-dom";
 
 //functions
-import { createOrUpdateUser } from "../../functions/auth";
+import { createOrUpdateUser } from '../../functions/auth';
 
 function Login({ history }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   // const [loading, setLoading] = useState(false);
 
   //redux
   let dispatch = useDispatch();
-
-  //roleBasedRedirect();
-  function roleBasedRedirect(res) {
-    if (res.data.role === "admin") {
-      history.push("/admin/dashboard");
-    } else {
-      history.push("/user/history");
-    }
-  }
   //redirect user from accessing login page after logged in
   const { user } = useSelector((state) => ({ ...state }));
   useEffect(() => {
     if (user && user.token) {
-      history.push("/");
+      history.push('/');
     }
   }, [user, history]);
+  //roleBasedRedirect();
+  function roleBasedRedirect(res) {
+    // check if there is an intended routes
+    let intended = history.location.state; // check previous URL's visited
+    if (intended) {
+      history.push(intended.from);
+    } else {
+      if (res.data.role === 'admin') {
+        history.push('/admin/dashboard');
+      } else {
+        history.push('/user/history');
+      }
+    }
+  }
 
   //login with google
   async function handleGoogleLogin(e) {
@@ -44,7 +49,7 @@ function Login({ history }) {
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
             dispatch({
-              type: "LOGGED_IN_USER",
+              type: 'LOGGED_IN_USER',
               payload: {
                 name: res.data.name,
                 email: res.data.email,
@@ -61,7 +66,7 @@ function Login({ history }) {
       .catch((err) => {
         console.log(err);
         toast.error(err.message);
-        setPassword("");
+        setPassword('');
       });
   }
 
@@ -77,7 +82,7 @@ function Login({ history }) {
       createOrUpdateUser(idTokenResult.token)
         .then((res) => {
           dispatch({
-            type: "LOGGED_IN_USER",
+            type: 'LOGGED_IN_USER',
             payload: {
               name: res.data.name,
               email: res.data.email,
@@ -96,7 +101,7 @@ function Login({ history }) {
       console.log(error);
       toast.error(error.message);
       // setLoading(false);
-      setPassword("");
+      setPassword('');
     }
   }
 
@@ -158,7 +163,7 @@ function Login({ history }) {
                   <i class="fab fa-google"></i> Sign In with Google
                 </button>
                 <p className="text-center p-2">
-                  Don't have an account?{" "}
+                  Don't have an account?{' '}
                   <Link to="/register" className="text-danger auth-link">
                     Register here.
                   </Link>
