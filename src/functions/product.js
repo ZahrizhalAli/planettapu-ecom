@@ -58,3 +58,15 @@ export const getProductsCount = async () => {
     `${process.env.REACT_APP_BACKEND_API}/products/total/`
   );
 };
+
+export const productStar = async (productId, star, authtoken) => {
+  return await axios.put(
+    `${process.env.REACT_APP_BACKEND_API}/product/star/${productId}`,
+    { star },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
