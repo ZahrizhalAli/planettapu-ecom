@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import { ShoppingCartOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Skeleton } from 'antd';
-
+import { showAverage } from '../../functions/rating';
 const { Meta } = Card;
 
 function ProductCard({ loading, product, defaultImage }) {
@@ -11,6 +11,11 @@ function ProductCard({ loading, product, defaultImage }) {
 
   return (
     <>
+      {product && product.ratings && product.ratings.length > 0 ? (
+        showAverage(product)
+      ) : (
+        <div className="text-center pb-4">No ratings yet.</div>
+      )}
       <Card
         cover={
           <img

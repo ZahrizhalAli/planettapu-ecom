@@ -3,7 +3,6 @@ import { getProduct, productStar } from '../functions/product';
 import { toast } from 'react-toastify';
 import SingleProduct from '../components/cards/SingleProduct';
 import { useSelector } from 'react-redux';
-
 function ProductsHomepage({ match }) {
   const [product, setProduct] = useState({});
   const [star, setStar] = useState(0);
