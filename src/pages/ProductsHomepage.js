@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { getProduct, productStar } from '../functions/product';
+import { getProduct, productStar, getRelated } from '../functions/product';
 import { toast } from 'react-toastify';
 import SingleProduct from '../components/cards/SingleProduct';
 import { useSelector } from 'react-redux';
+import ProductCard from '../components/cards/ProductCard';
+
 function ProductsHomepage({ match }) {
   const [product, setProduct] = useState({});
   const [star, setStar] = useState(0);
-
+  const [related, setRelated] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
   const { slug } = match.params;
   //
@@ -28,6 +30,8 @@ function ProductsHomepage({ match }) {
     getProduct(slug)
       .then((res) => {
         setProduct(res.data);
+        // set related product
+        getRelated(res.data._id).then((res) => setRelated(res.data));
       })
       .catch((err) => {
         toast.error('Fetching product error');
@@ -58,6 +62,17 @@ function ProductsHomepage({ match }) {
             <hr />
             <h2>Related Product</h2>
             <hr />
+            <div className="row pb-5">
+              {related && related.length > 0 ? (
+                related.map((r) => (
+                  <div className="col-md-4" key={r._id}>
+                    <ProductCard product={r} />
+                  </div>
+                ))
+              ) : (
+                <div className="text-center">No Products Found</div>
+              )}
+            </div>
           </div>
         </div>
       </div>
