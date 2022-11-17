@@ -54,6 +54,7 @@ const UpdateProduct = React.lazy(() =>
 );
 const Products = React.lazy(() => import('./pages/admin/products/Products'));
 const CategoryHome = React.lazy(() => import('./pages/category/CategoryHome'));
+const SubHome = React.lazy(() => import('./pages/sub/SubHome'));
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -108,6 +109,7 @@ function App() {
           <Route exact path="/register/complete" component={RegisterComplete} />
           <Route exact path="/forgot/password" component={ForgotPassword} />
           <Route exact path="/category/:slug" component={CategoryHome} />
+          <Route exact path="/subs/:slug" component={SubHome} />
 
           <UserRoute exact path="/user/history" component={History} />
           <UserRoute exact path="/user/password" component={Password} />

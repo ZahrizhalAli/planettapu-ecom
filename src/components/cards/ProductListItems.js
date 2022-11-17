@@ -28,7 +28,7 @@ function ProductListItems({ product }) {
             subs.map((p) => {
               return (
                 <Link
-                  to={`/category/${p.subs && p.subs.name}`}
+                  to={`/subs/${p && p.name}`}
                   className="label label-default label-pill pull-xs-right"
                 >
                   {p.name}

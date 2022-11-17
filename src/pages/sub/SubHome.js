@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getCategory } from '../../functions/category';
 import { Link } from 'react-router-dom';
 import ProductCard from '../../components/cards/ProductCard';
-
-function CategoryHome({ match }) {
-  const [category, setCategory] = useState({});
+import { getSub } from '../../functions/sub';
+function SubHome({ match }) {
+  const [sub, setSub] = useState({});
 
   const [products, setProducts] = useState([]);
 
@@ -13,8 +12,8 @@ function CategoryHome({ match }) {
 
   useEffect(() => {
     setLoading(true);
-    getCategory(slug).then((d) => {
-      setCategory(d.data.category);
+    getSub(slug).then((d) => {
+      setSub(d.data.sub);
       setProducts(d.data.products);
       setLoading(false);
     });
@@ -30,7 +29,7 @@ function CategoryHome({ match }) {
               </h4>
             ) : (
               <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
-                {products.length} Products in {category.name}'s category
+                {products.length} Products in {sub.name}'s Sub category
               </h4>
             )}
           </div>
@@ -47,4 +46,4 @@ function CategoryHome({ match }) {
   );
 }
 
-export default CategoryHome;
+export default SubHome;

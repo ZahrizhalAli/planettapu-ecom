@@ -5,6 +5,7 @@ const NewArrivals = React.lazy(() => import('../components/home/NewArrivals'));
 const CategoryList = React.lazy(() =>
   import('../components/category/CategoryList')
 );
+const SubList = React.lazy(() => import('../components/sub/SubList'));
 function Home() {
   return (
     <>
@@ -14,6 +15,9 @@ function Home() {
       <BestSellers />
       <Jumbotron title={'Categories'} />
       <CategoryList />
+      <Jumbotron title={'Sub Categories'} />
+
+      <SubList />
     </>
   );
 }
