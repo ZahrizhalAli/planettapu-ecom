@@ -1,9 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import firebase from "firebase";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Search from '../forms/Search';
+import firebase from 'firebase';
+import { ShopOutlined } from '@ant-design/icons';
 
 function Header() {
   let history = useHistory();
@@ -16,11 +17,11 @@ function Header() {
     firebase.auth().signOut();
     //dispatch state
     dispatch({
-      type: "LOGOUT",
+      type: 'LOGOUT',
       payload: null,
     });
 
-    history.push("/login");
+    history.push('/login');
   }
   return (
     <>
@@ -60,14 +61,14 @@ function Header() {
                         class="dropdown-menu"
                         aria-labelledby="navbarDropdown"
                       >
-                        {user && user.role === "admin" && (
+                        {user && user.role === 'admin' && (
                           <>
                             <li>
                               <Link
                                 class="dropdown-item nav-link-dropdown"
                                 to="/admin/dashboard"
                               >
-                                {user.email.split("@")[0]}
+                                {user.email.split('@')[0]}
                               </Link>
                             </li>
                             <li>
@@ -107,14 +108,14 @@ function Header() {
                             </li>
                           </>
                         )}
-                        {user && user.role === "subscriber" && (
+                        {user && user.role === 'subscriber' && (
                           <>
                             <li>
                               <Link
                                 class="dropdown-item nav-link-dropdown"
                                 to="/user/history"
                               >
-                                {user.email.split("@")[0]}
+                                {user.email.split('@')[0]}
                               </Link>
                             </li>
                             <hr class="dropdown-divider" />
@@ -159,20 +160,9 @@ function Header() {
                   </Link>
                 </li>
                 <li class="nav-item ">
-                  <form class="form-inline mr-auto" target="_self">
-                    <div class="form-group">
-                      <label for="search-field">
-                        <i class="fa fa-search fa-1x search-icon"></i>
-                      </label>
-                      <input
-                        class="form-control search-field"
-                        type="search"
-                        id="search-field"
-                        name="search"
-                        placeholder="Search product"
-                      />
-                    </div>
-                  </form>
+                  <Link className="nav-link" to="/shop">
+                    Shop
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/">
@@ -192,6 +182,9 @@ function Header() {
               </ul>
             </div>
             <ul className="navbar-nav ">
+              <li className="nav-item float-right">
+                <Search />
+              </li>
               {user && (
                 <li className="nav-item ">
                   <Link to="/login" onClick={logout} className="nav-link">
