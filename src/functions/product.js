@@ -18,6 +18,13 @@ export const getProductsByCount = async (count) => {
   );
 };
 
+export const getProductsByFilter = async (query) => {
+  return await axios.post(
+    `${process.env.REACT_APP_BACKEND_API}/search/filters`,
+    query
+  );
+};
+
 export const removeProduct = async (slug, authtoken) => {
   await axios.delete(`${process.env.REACT_APP_BACKEND_API}/product/${slug}`, {
     headers: {
