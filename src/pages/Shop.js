@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { getProductsByCount, getProductsByFilter } from '../functions/product';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../components/cards/ProductCard';
-import { Menu, Slider } from 'antd';
-import { DollarOutlined } from '@ant-design/icons';
+import { Menu, Slider, Checkbox } from 'antd';
+import { DollarOutlined, DownSquareOutlined } from '@ant-design/icons';
+import { getCategories } from '../functions/category';
 const { SubMenu, Item } = Menu;
 
 function Shop() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState([0, 0]);
+  const [categories, setCategories] = useState([]);
+  const [categoryIds, setCategoryIds] = useState([]);
 
   let { search } = useSelector((state) => ({ ...state }));
   let dispatch = useDispatch();
@@ -17,6 +20,8 @@ function Shop() {
 
   useEffect(() => {
     loadAllProducts();
+    // get categories
+    getCategories().then((res) => setCategories(res.data));
   }, []);
 
   // 1. Load default products on page load
@@ -55,9 +60,52 @@ function Shop() {
       payload: { text: '' },
     });
     setPrice(value);
+    setCategoryIds([]); // clean category ids
     setTimeout(() => {
       setOk(!ok);
     }, 100);
+  };
+
+  // 4. load products based on category
+  const showCategories = () =>
+    categories.map((c) => (
+      <div key={c._id}>
+        <Checkbox
+          onChange={handleCheck}
+          className="pb-2 pl-4 pr-4"
+          value={c._id}
+          name="category"
+          checked={categoryIds.includes(c._id)}
+        >
+          {c.name}
+        </Checkbox>
+        <br />
+      </div>
+    ));
+
+  // handle check for categories
+  const handleCheck = (e) => {
+    dispatch({
+      type: 'SEARCH_QUERY',
+      payload: { text: '' },
+    });
+    setPrice([0, 0]);
+    // check all available data in categoryIds
+    let inTheState = [...categoryIds];
+    let justChecked = e.target.value;
+
+    let foundInTheState = inTheState.indexOf(justChecked);
+
+    if (foundInTheState === -1) {
+      inTheState.push(justChecked);
+    } else {
+      // if found, pull out one item from index
+      inTheState.splice(foundInTheState, 1); // remove 1 item given the index found
+    }
+
+    setCategoryIds(inTheState);
+
+    fetchProducts({ category: inTheState });
   };
   return (
     <>
@@ -65,8 +113,9 @@ function Shop() {
         <div className="row">
           <div className="col-md-3">
             <h4>Search/Filter</h4>
+
             <hr />
-            <Menu defaultOpenKeys={['slider_1', '2']} mode="inline">
+            <Menu defaultOpenKeys={['slider_1', 'slider_2']} mode="inline">
               <SubMenu
                 key="slider_1"
                 title={
@@ -86,6 +135,18 @@ function Shop() {
                     max="499999"
                   />
                 </div>
+                <br />
+              </SubMenu>
+              <SubMenu
+                key="slider_2"
+                title={
+                  <span className="h5">
+                    <DownSquareOutlined />
+                    Categories
+                  </span>
+                }
+              >
+                {showCategories()}
               </SubMenu>
             </Menu>
           </div>
