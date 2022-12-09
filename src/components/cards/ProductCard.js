@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'antd';
 import { ShoppingCartOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { Skeleton } from 'antd';
+import { Tooltip } from 'antd';
 import { showAverage } from '../../functions/rating';
+import _ from 'lodash';
 const { Meta } = Card;
 
 function ProductCard({ loading, product, defaultImage }) {
+  const [tooltip, setTooltip] = useState('Click to add');
   const { title, description, images, slug } = product;
 
+  const handleAddToCart = () => {
+    // create cart array
+    setTooltip('Added');
+    let cart = [];
+    if (typeof window !== 'undefined') {
+      // if cart is in local storage get it
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+      }
+
+      // console.log(cart);
+      // // push new product to cart
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      // remove duplicates first
+      let unique = _.uniqWith(cart, _.isEqual);
+      // save to local storage
+      console.log(unique);
+      localStorage.setItem('cart', JSON.stringify(unique));
+    }
+  };
   return (
     <>
       {product && product.ratings && product.ratings.length > 0 ? (
@@ -31,11 +56,13 @@ function ProductCard({ loading, product, defaultImage }) {
             <br />
             View Product
           </Link>,
-          <div>
-            <ShoppingCartOutlined />
-            <br />
-            Add to cart
-          </div>,
+          <Tooltip title={tooltip}>
+            <a onClick={handleAddToCart}>
+              <ShoppingCartOutlined className="text-danger" />
+              <br />
+              Add to cart
+            </a>
+          </Tooltip>,
         ]}
       >
         <Meta
