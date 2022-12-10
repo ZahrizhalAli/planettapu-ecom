@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Search from '../forms/Search';
 import firebase from 'firebase';
 import { ShopOutlined } from '@ant-design/icons';
+import { Badge } from 'antd';
 
 function Header() {
   let history = useHistory();
 
   let dispatch = useDispatch();
-  let { user } = useSelector((state) => ({ ...state }));
+  let { user, cart } = useSelector((state) => ({ ...state }));
 
   function logout() {
     //sign out user from firebase
@@ -150,8 +151,9 @@ function Header() {
                   </>
                 )}
                 <li class="nav-item">
-                  <Link class="nav-link active" aria-current="page" to="/">
+                  <Link class="nav-link active" aria-current="page" to="/cart">
                     <i class="fas fa-shopping-bag nav-icon"></i>
+                    <Badge count={cart.length} offset={[-4, -15]}></Badge>
                   </Link>
                 </li>
                 <li class="nav-item">

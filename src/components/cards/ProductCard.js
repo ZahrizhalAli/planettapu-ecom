@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import { ShoppingCartOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { showAverage } from '../../functions/rating';
 import _ from 'lodash';
 const { Meta } = Card;
@@ -10,6 +11,9 @@ const { Meta } = Card;
 function ProductCard({ loading, product, defaultImage }) {
   const [tooltip, setTooltip] = useState('Click to add');
   const { title, description, images, slug } = product;
+  // redux
+  const dispatch = useDispatch();
+  const { user, cart } = useSelector((state) => ({ ...state }));
 
   const handleAddToCart = () => {
     // create cart array
@@ -32,6 +36,12 @@ function ProductCard({ loading, product, defaultImage }) {
       // save to local storage
       console.log(unique);
       localStorage.setItem('cart', JSON.stringify(unique));
+
+      // add to redux state
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: unique,
+      });
     }
   };
   return (

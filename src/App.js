@@ -32,6 +32,8 @@ const CategoryUpdate = React.lazy(() =>
 //pages/user
 const Wishlist = React.lazy(() => import('./pages/user/Wishlist'));
 const Password = React.lazy(() => import('./pages/user/Password'));
+const Cart = React.lazy(() => import('./pages/Cart'));
+
 //pages/admin
 const AdminDashboard = React.lazy(() => import('./pages/admin/AdminDashboard'));
 
@@ -105,6 +107,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/product/:slug" component={ProductsHomepage} />
           <Route exact path="/shop/" component={Shop} />
+          <Route exact path="/cart" component={Cart} />
 
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
