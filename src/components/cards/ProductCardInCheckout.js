@@ -1,7 +1,43 @@
 import React from 'react';
 import ModalImage from 'react-modal-image';
 import contoh from '../../contoh.jpg';
+import { useDispatch } from 'react-redux';
 function ProductCardInCheckout({ p }) {
+  let dispatch = useDispatch();
+  const colors = [
+    'Black',
+    'Blue',
+    'Red',
+    'White',
+    'Space Grey',
+    'Gray',
+    'Yellow',
+    'Green',
+    'Navy',
+  ];
+
+  const handleColorChange = (e) => {
+    let cart = [];
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+      }
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart[i].color = e.target.value;
+        }
+      });
+
+      // save again in local storage after change
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // save in redux
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: cart,
+      });
+    }
+  };
   return (
     <tr>
       <td>
@@ -15,7 +51,26 @@ function ProductCardInCheckout({ p }) {
       </td>
       <td>{p.title}</td>
       <td>{p.price}</td>
-      <td>{p.color}</td>
+      <td>
+        <select
+          name="color"
+          className="form-control"
+          onChange={handleColorChange}
+        >
+          {p.color ? (
+            <option value={p.color}>{p.color}</option>
+          ) : (
+            <option>Select</option>
+          )}
+          {colors
+            .filter((c) => c !== p.color)
+            .map((c, i) => (
+              <option value={c} key={i}>
+                {c}
+              </option>
+            ))}
+        </select>
+      </td>
       <td>{p.count} items</td>
       <td>{p.shipping}</td>
       <td>Icon Remove</td>

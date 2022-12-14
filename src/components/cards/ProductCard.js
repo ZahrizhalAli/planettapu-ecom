@@ -51,6 +51,7 @@ function ProductCard({ loading, product, defaultImage }) {
       ) : (
         <div className="text-center pb-4">No ratings yet.</div>
       )}
+
       <Card
         cover={
           <img

@@ -20,7 +20,6 @@ function ProductCreateForm({
     subs,
     shipping,
     quantity,
-    images,
     colors,
     color,
   } = values;
