@@ -58,6 +58,8 @@ const UpdateProduct = React.lazy(() =>
 const Products = React.lazy(() => import('./pages/admin/products/Products'));
 const CategoryHome = React.lazy(() => import('./pages/category/CategoryHome'));
 const SubHome = React.lazy(() => import('./pages/sub/SubHome'));
+const SideDrawer = React.lazy(() => import('./components/drawer/SideDrawer'));
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -101,6 +103,7 @@ function App() {
     <>
       <Suspense fallback={null}>
         <Header />
+        <SideDrawer />
         <ToastContainer />
 
         <Switch>

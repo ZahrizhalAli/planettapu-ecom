@@ -3,6 +3,11 @@ import ModalImage from 'react-modal-image';
 import contoh from '../../contoh.jpg';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  CloseOutlined,
+} from '@ant-design/icons';
 function ProductCardInCheckout({ p }) {
   let dispatch = useDispatch();
   const colors = [
@@ -55,7 +60,7 @@ function ProductCardInCheckout({ p }) {
         cart = JSON.parse(localStorage.getItem('cart'));
       }
       cart.map((product, i) => {
-        if (product._id == p._id) {
+        if (product._id === p._id) {
           cart[i].count = count;
         }
       });
@@ -67,6 +72,29 @@ function ProductCardInCheckout({ p }) {
       });
     }
   };
+
+  const handleRemove = () => {
+    //
+    let cart = [];
+
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+      }
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart.splice(i, 1); // delete 1 item from index ith
+        }
+      });
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: cart,
+      });
+    }
+  };
+
   return (
     <tr>
       <td>
@@ -108,8 +136,16 @@ function ProductCardInCheckout({ p }) {
           onChange={handleQuantityChange}
         />
       </td>
-      <td>{p.shipping}</td>
-      <td>Icon Remove</td>
+      <td>
+        {p.shipping === 'Yes' ? (
+          <CheckCircleOutlined className="text-success" />
+        ) : (
+          <CloseCircleOutlined className="text-danger" />
+        )}
+      </td>
+      <td>
+        <CloseOutlined onClick={handleRemove} className="text-danger pointer" />
+      </td>
     </tr>
   );
 }
