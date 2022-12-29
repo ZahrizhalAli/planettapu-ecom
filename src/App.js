@@ -41,6 +41,7 @@ const CreateSub = React.lazy(() => import('./pages/admin/sub/CreateSub'));
 const UpdateSub = React.lazy(() => import('./pages/admin/sub/UpdateSub'));
 //pages
 const Home = React.lazy(() => import('./pages/Home'));
+const Checkout = React.lazy(() => import('./pages/Checkout'));
 const ProductsHomepage = React.lazy(() => import('./pages/ProductsHomepage'));
 const Shop = React.lazy(() => import('./pages/Shop'));
 //components/nav & /footer
@@ -118,6 +119,7 @@ function App() {
           <Route exact path="/forgot/password" component={ForgotPassword} />
           <Route exact path="/category/:slug" component={CategoryHome} />
           <Route exact path="/subs/:slug" component={SubHome} />
+          <UserRoute exact path="/checkout" component={Checkout} />
 
           <UserRoute exact path="/user/history" component={History} />
           <UserRoute exact path="/user/password" component={Password} />
