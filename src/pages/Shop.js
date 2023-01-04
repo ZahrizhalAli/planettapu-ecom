@@ -43,6 +43,9 @@ function Shop() {
     const delayed = setTimeout(() => {
       // improve performance from each query request
       fetchProducts({ query: text });
+      if (!text) {
+        loadAllProducts();
+      }
     }, 300);
     return () => clearTimeout(delayed);
   }, [text]);

@@ -30,4 +30,11 @@ export const emptyUserCart = async (authtoken) => {
   });
 };
 
+export const saveUserAddress = async (authtoken, address) => {
+  return await axios.post(
+    `${process.env.REACT_APP_BACKEND_API}/user/address`,
+    { address },
+    { headers: { authtoken } }
+  );
+};
 // NOTE: IF we use PUT method, we must send a body object
