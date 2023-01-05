@@ -11,6 +11,7 @@ import { auth } from './firebase';
 import { useDispatch } from 'react-redux';
 //functions
 import { currentUser } from './functions/auth';
+
 //pages -> auth
 const ForgotPassword = React.lazy(() => import('./pages/auth/ForgotPassword'));
 const RegisterComplete = React.lazy(() =>
@@ -21,7 +22,9 @@ const History = React.lazy(() => import('./pages/user/History'));
 //components/routes
 const UserRoute = React.lazy(() => import('./components/routes/UserRoute'));
 const AdminRoute = React.lazy(() => import('./components/routes/AdminRoute'));
-
+const CreateCoupon = React.lazy(() =>
+  import('./pages/admin/coupon/CreateCoupon')
+);
 const CategoryCreate = React.lazy(() =>
   import('./pages/admin/category/CategoryCreate')
 );
@@ -139,7 +142,7 @@ function App() {
 
           <AdminRoute exact path="/admin/sub" component={CreateSub} />
           <AdminRoute exact path="/admin/sub/:slug" component={UpdateSub} />
-
+          <AdminRoute exact path="/admin/coupon" component={CreateCoupon} />
           <AdminRoute exact path="/admin/product" component={CreateProduct} />
           <AdminRoute
             exact

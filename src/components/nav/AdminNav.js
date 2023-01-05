@@ -41,6 +41,11 @@ function AdminNav() {
               </Link>
             </li>
             <li>
+              <Link to="/admin/coupon" class="nav-link link-dark">
+                <i class="fas fa-comments-dollar icon-nav"></i> Coupon
+              </Link>
+            </li>
+            <li>
               <Link to="/admin/password" class="nav-link link-dark">
                 <i class="fas fa-key icon-nav"></i> Password
               </Link>
