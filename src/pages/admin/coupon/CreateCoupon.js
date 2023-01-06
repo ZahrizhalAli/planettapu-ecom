@@ -50,7 +50,7 @@ function CreateCoupon() {
 
   //remove categories
   async function handleRemove(id) {
-    if (window.confirm('Are you sure want to delete? ')) {
+    if (window.confirm(`Delete this coupon?`)) {
       removeCoupons(id, user.token)
         .then(() => {
           toast.dark('Discount removed');
