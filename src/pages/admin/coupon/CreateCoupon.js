@@ -57,7 +57,7 @@ function CreateCoupon() {
           loadCoupons();
         })
         .catch((err) => {
-          toast.error('Remove failed');
+          toast.error(err);
         });
     }
   }
