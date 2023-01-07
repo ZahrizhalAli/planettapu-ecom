@@ -9,7 +9,7 @@ function Checkout() {
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState('');
   const [addressSaved, setAddressSaved] = useState(false);
-
+  const [coupon, setCoupon] = useState('');
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -47,6 +47,52 @@ function Checkout() {
       }
     });
   };
+
+  const applyDiscountCoupon = () => {
+    console.log(coupon);
+  };
+  const showAddress = () => {
+    return (
+      <>
+        <ReactQuill theme="snow" value={address} onChange={setAddress} />
+        <button className="btn btn-primary mt-2" onClick={saveAddressToDB}>
+          Save
+        </button>
+      </>
+    );
+  };
+
+  const showProductsSummary = () => {
+    return products.map((p, i) => {
+      return (
+        <>
+          <div key={i}>
+            <p>
+              {p.product.title} ({p.color}) x {p.count} ={' '}
+              {p.product.price * p.count}
+            </p>
+          </div>
+        </>
+      );
+    });
+  };
+
+  const showApplyCoupon = () => {
+    return (
+      <>
+        <input
+          onChange={(e) => setCoupon(e.target.value)}
+          type="text"
+          value={coupon}
+          placeholder="Your Coupon Here"
+          className="form-control"
+        />
+        <button onClick={applyDiscountCoupon} className="btn btn-primary mt-2">
+          Apply
+        </button>
+      </>
+    );
+  };
   return (
     <>
       <div className="row">
@@ -54,12 +100,10 @@ function Checkout() {
           <h4>Delivery Address</h4>
           <br />
           <br />
-          <ReactQuill theme="snow" value={address} onChange={setAddress} />
-          <button className="btn btn-primary mt-2" onClick={saveAddressToDB}>
-            Save
-          </button>
+          {showAddress()}
           <hr />
           <h4>Got Coupon?</h4>
+          {showApplyCoupon()}
         </div>
         <div className="col-md-6">
           <h4>Order Summary</h4>
@@ -67,18 +111,7 @@ function Checkout() {
           <hr />
           <p>{products.length} Products</p>
           <hr />
-          {products.map((p, i) => {
-            return (
-              <>
-                <div key={i}>
-                  <p>
-                    {p.product.title} ({p.color}) x {p.count} ={' '}
-                    {p.product.price * p.count}
-                  </p>
-                </div>
-              </>
-            );
-          })}
+          {showProductsSummary()}
           <hr />
           <p>Cart total : {total}</p>
 
