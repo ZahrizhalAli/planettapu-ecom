@@ -38,3 +38,15 @@ export const saveUserAddress = async (authtoken, address) => {
   );
 };
 // NOTE: IF we use PUT method, we must send a body object
+
+export const applyCoupon = async (authtoken, coupon) => {
+  return await axios.post(
+    `${process.env.REACT_APP_BACKEND_API}/user/cart/coupon`,
+    { coupon },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
