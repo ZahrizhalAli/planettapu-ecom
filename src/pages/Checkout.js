@@ -9,17 +9,17 @@ import {
 import { toast } from 'react-toastify';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-function Checkout() {
+function Checkout({ history }) {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState('');
   const [addressSaved, setAddressSaved] = useState(false);
-  const [coupon, setCoupon] = useState('');
+  const [couponname, setCoupon] = useState('');
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, coupon } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     getUserCart(user.token).then((res) => {
@@ -60,13 +60,21 @@ function Checkout() {
 
   const applyDiscountCoupon = () => {
     // console.log(coupon);
-    applyCoupon(user.token, coupon).then((res) => {
+    applyCoupon(user.token, couponname).then((res) => {
       if (res.data.err) {
         toast.error('Coupon Invalid');
         // update redux coupon applied
+        dispatch({
+          type: 'COUPON_APPLIED',
+          payload: false,
+        });
       } else if (res.data) {
         toast.success('Coupon Applied');
         setTotalAfterDiscount(res.data);
+        dispatch({
+          type: 'COUPON_APPLIED',
+          payload: true,
+        });
       }
       // update state in redux the total after discount
     });
@@ -104,7 +112,7 @@ function Checkout() {
         <input
           onChange={(e) => setCoupon(e.target.value)}
           type="text"
-          value={coupon}
+          value={couponname}
           placeholder="Your Coupon Here"
           className="form-control"
         />
@@ -146,6 +154,7 @@ function Checkout() {
               <button
                 disabled={!addressSaved || !products.length}
                 className="btn btn-primary"
+                onClick={() => history.push('/payment')}
               >
                 Place Order
               </button>

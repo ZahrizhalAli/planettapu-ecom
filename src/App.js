@@ -47,6 +47,8 @@ const Home = React.lazy(() => import('./pages/Home'));
 const Checkout = React.lazy(() => import('./pages/Checkout'));
 const ProductsHomepage = React.lazy(() => import('./pages/ProductsHomepage'));
 const Shop = React.lazy(() => import('./pages/Shop'));
+const Payment = React.lazy(() => import('./pages/Payment'));
+
 //components/nav & /footer
 const Header = React.lazy(() => import('./components/nav/Header'));
 const Footer = React.lazy(() => import('./components/footer/Footer'));
@@ -123,6 +125,7 @@ function App() {
           <Route exact path="/category/:slug" component={CategoryHome} />
           <Route exact path="/subs/:slug" component={SubHome} />
           <UserRoute exact path="/checkout" component={Checkout} />
+          <UserRoute exact path="/payment" component={Payment} />
 
           <UserRoute exact path="/user/history" component={History} />
           <UserRoute exact path="/user/password" component={Password} />
