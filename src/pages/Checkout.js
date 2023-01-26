@@ -16,7 +16,7 @@ function Checkout() {
   const [addressSaved, setAddressSaved] = useState(false);
   const [coupon, setCoupon] = useState('');
   // discount price
-  const [totalAfterDiscount, setTotalAfterDiscount] = useState('');
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -42,6 +42,8 @@ function Checkout() {
     // remove from backend
     emptyUserCart(user.token).then((res) => {
       setProducts([]);
+      setTotalAfterDiscount(0);
+      setCoupon('');
       setTotal(0);
       toast.success('Cart is empty.');
     });
@@ -59,15 +61,14 @@ function Checkout() {
   const applyDiscountCoupon = () => {
     // console.log(coupon);
     applyCoupon(user.token, coupon).then((res) => {
-      if (res.data) {
+      if (res.data.err) {
+        toast.error('Coupon Invalid');
+        // update redux coupon applied
+      } else if (res.data) {
         toast.success('Coupon Applied');
         setTotalAfterDiscount(res.data);
       }
       // update state in redux the total after discount
-      if (res.data.err) {
-        toast.error('Coupon Invalid');
-        // update redux coupon applied
-      }
     });
   };
 
@@ -124,6 +125,7 @@ function Checkout() {
           <hr />
           <h4>Got Coupon?</h4>
           {showApplyCoupon()}
+          <br />
         </div>
         <div className="col-md-6">
           <h4>Order Summary</h4>
@@ -134,7 +136,11 @@ function Checkout() {
           {showProductsSummary()}
           <hr />
           <p>Cart total : {total}</p>
-
+          {totalAfterDiscount > 0 && (
+            <p className="bg-success">
+              Discount Applied: Total Payable: Rp. {totalAfterDiscount}
+            </p>
+          )}
           <div className="row">
             <div className="col-md-6">
               <button
