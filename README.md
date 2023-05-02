@@ -1,43 +1,62 @@
-# Getting Started with Create React App
+# Planettap E-commerce App
+
+Planettap is a web-based e-commerce application developed using ReactJS. It provides a platform for users to browse and purchase various products online. This documentation provides an overview of the features and usage of the Planettap e-commerce app.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Features
+
+* User authentication and authorization with Firebase Auth
+* Product search and filtering (advance filtering)
+* Product categorization and sorting
+* Product details page with description, images, price and ratings feature
+* Add to cart and checkout functionality
+* Order history and tracking
+* Payment Gateway integration (on progress)
+* Admin panel for managing products, orders, and users
+* User panel for purchase and orders management
+
+## Technologies Used
+
+* ReactJS
+* Redux State Management
+* React Router Dom for Routing
+* Axios for HTTP Requests
+* Bootstrap, Ant Design and Material UI for styling
+* Node JS with Express for the backend (on the separate repo)
+* Mongodb for database with mongoose (on the separate repo)
+
+## Installation
+
+To install the Planettap e-commerce app on your local machine, follow these steps
 
 In the project directory, you can run:
 
-### `npm start`
+1. Clone the repository
+2. Navigate to the project using `cd frontend`
+3. Install dependencies using `npm install` make sure to have npm set up. If you have latest version of npm u might wanna use the --openssl-legacy-provider statement
+4. Create a `.env` file in the root directory of the project and add the environment variables: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+REACT_APP_BACKEND_API=your_api_url
+REACT_APP_URL=login_redirect_url_from_firebase_auth
+...
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+5. Start the development server using `npm start`
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
+Once you have the Planettap e-commerce app up and running on your local machine, you can use it to browse and purchase products online. The following are the main pages of the app:
 
-### `npm run build`
+* Home Page - displays the featured products and categories.
+* Product List Page - displays the list of products based on the selected category and search query with advanced filter
+* Product Details Page - displays the detailed information about a specific product, including description, images, price, and ratings.
+* Cart Page - displays the products that have been added to the cart and allows the user to proceed to checkout.
+* Checkout Page - allows the user to enter their shipping and payment information to complete the purchase.
+* Order History Page - displays the user's order history and order status.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Admin Panel
+The Planettap e-commerce app also includes an admin panel that allows the admin to manage products, orders, and users. For now you can learn more about the admin credentials in the backend repo.
 
 ## Learn More
 
@@ -65,6 +84,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# License
